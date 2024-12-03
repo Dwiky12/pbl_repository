@@ -23,12 +23,12 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('jenis_akreditasis', function (Blueprint $table){
-            $table->dropColumn([
-                'id_jenisakreditasi',
-                'akreditasi',
-            ]);
-        });
+        // Schema::table('jenis_akreditasis', function (Blueprint $table){
+        //     $table->dropColumn([
+        //         'id_jenisakreditasi',
+        //         'akreditasi',
+        //     ]);
+        // });
         Schema::dropIfExists('jenis_akreditasis');
     }
 };

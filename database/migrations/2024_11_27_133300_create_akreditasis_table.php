@@ -15,14 +15,13 @@ return new class extends Migration
             $table->id('id_akreditasi');
             $table->unsignedBigInteger('id_dokumen');
             $table->unsignedBigInteger('id_prodi');
-            $table->string('no_sk_akreditasi');
+            $table->string('no_sk');
             $table->unsignedBigInteger('id_jenisakreditasi');
             $table->float('nilai_akreditasi');
             $table->unsignedBigInteger('id_lembaga');
             $table->unsignedBigInteger('id_tingkat');
             $table->date('tanggal_mulai');
             $table->date('tanggal_berakhir');
-            $table->string('file')->nullable();
             $table->timestamps();
 
             $table->foreign('id_dokumen')->references('id_dokumen')->on('dokumens')->onDelete('cascade')->onUpdate('cascade');
@@ -38,20 +37,20 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('akreditasis', function (Blueprint $table){
-            $table->dropColumn([
-                'id_akreditasi',
-                'id_prodi',
-                'no_sk_akreditasi',
-                'id_jenisakreditasi',
-                'nilai_akreditasi',
-                'id_lembaga',
-                'id_tingkat',
-                'tanggal_mulai',
-                'tanggal_berakhir',
-                'file',
-            ]);
-        });
+        // Schema::table('akreditasis', function (Blueprint $table){
+        //     $table->dropColumn([
+        //         'id_akreditasi',
+        //         'id_prodi',
+        //         'no_sk_akreditasi',
+        //         'id_jenisakreditasi',
+        //         'nilai_akreditasi',
+        //         'id_lembaga',
+        //         'id_tingkat',
+        //         'tanggal_mulai',
+        //         'tanggal_berakhir',
+        //         'file',
+        //     ]);
+        // });
         Schema::dropIfExists('akreditasis');
     }
 };

@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lembagas', function (Blueprint $table) {
-            $table->id('id_lembaga');
-            $table->string('nama_lembaga');
+        Schema::create('skemas', function (Blueprint $table) {
+            $table->id('id_skema');
+            $table->string('skema');
             $table->timestamps();
         });
     }
@@ -23,13 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Schema::table('lembagas', function (Blueprint $table){
-        //     $table->dropColumn([
-        //         'id_lembaga',
-        //         'nama_lembaga',
-        //     ]);
-        // });
-
-        Schema::dropIfExists('lembagas');
+        Schema::dropIfExists('skemas');
     }
 };
