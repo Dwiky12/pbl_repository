@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_prodi');
             $table->text('visi');
             $table->text('misi');
+            $table->string('tahun_pemberlakuan');
             $table->string('semester');
             $table->integer('revisi_ke');
             $table->timestamps();

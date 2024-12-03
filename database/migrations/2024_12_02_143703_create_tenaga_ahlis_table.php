@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('id_tenagaahli');
             $table->unsignedBigInteger('id_dokumen');
             $table->unsignedBigInteger('id_prodi');
+            $table->string('nama_tenagaahli');
             $table->string('asal_instansi');
             $table->string('bidang_keahlian');
             $table->date('tanggal_mulai');
