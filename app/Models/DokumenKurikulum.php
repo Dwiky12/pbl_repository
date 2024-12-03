@@ -6,5 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class DokumenKurikulum extends Model
 {
-    //
+    use HasFactory;
+
+    protected $fillable = [
+        'id_dokumen', 'id_prodi', 'nama_kurikulum', 'tahun_pemberlakuan', 'semester', 'revisi_ke'
+    ];
+
+    public function dokumen() {
+        return $this->belongsTo(Dokumen::class);
+    }
+
+    public function prodi() {
+        return $this->belongsTo(Prodi::class);
+    }
 }
