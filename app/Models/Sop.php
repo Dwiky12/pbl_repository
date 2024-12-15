@@ -2,25 +2,27 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sop extends Model
-{
+class Sop extends Model {
     use HasFactory;
 
+    protected $table = 'sops';
+    protected $primaryKey = 'id_sop';
     protected $fillable = [
-        'id_dokumen', 'id_prodi', 'id_kategorisop', 'nama_sop'
+        'id_prodi',
+        'id_kategorisop',
+        'nama_sop',
+        'file_dokumen',
+        'status'
     ];
 
-    public function dokumen() {
-        return $this->belongsTo(Dokumen::class);
-    }
-
     public function prodi() {
-        return $this->belongsTo(Prodi::class);
+        return $this->belongsTo(Prodi::class, 'id_prodi');
     }
 
-    public function kategoriSOP() {
-        return $this->belongsTo(KategoriSOP::class);
+    public function kategoriSop() {
+        return $this->belongsTo(KategoriSop::class, 'id_kategorisop');
     }
 }

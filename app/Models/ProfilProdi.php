@@ -2,21 +2,23 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProfilProdi extends Model
-{
+class ProfilProdi extends Model {
     use HasFactory;
 
+    protected $table = 'profil_prodis';
+    protected $primaryKey = 'id_profilprodi';
     protected $fillable = [
-        'id_dokumen', 'id_prodi', 'tahun_penggunaan', 'revisi_ke'
+        'id_prodi',
+        'tahun_penggunaan',
+        'revisi_ke',
+        'file_dokumen',
+        'status'
     ];
 
-    public function dokumen() {
-        return $this->belongsTo(Dokumen::class);
-    }
-
     public function prodi() {
-        return $this->belongsTo(Prodi::class);
+        return $this->belongsTo(Prodi::class, 'id_prodi');
     }
 }

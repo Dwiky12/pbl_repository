@@ -17,7 +17,7 @@ use App\Http\Controllers\AkreditasiController;
 use App\Http\Controllers\VisiMisiController;
 use App\Http\Controllers\ProfilProdiController;
 use App\Http\Controllers\DokumenKurikulumController;
-use App\Http\Controllers\SOPController;
+use App\Http\Controllers\SopController;
 use App\Http\Controllers\TenagaAhliController;
 use App\Http\Controllers\KoleksiJurnalController;
 use App\Http\Controllers\SeminarController;
@@ -35,12 +35,37 @@ Route::get('/', [LandingPageController::class, 'index'])->name('landing.page');
 
 // Route untuk autentikasi
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('login', [AuthController::class, 'login']);
+Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::middleware(['dosen'])->group(function () {
+    Route::resource('dokumen_kurikulum', DokumenKurikulumController::class);
+});
+// Tambahkan route khusus untuk kaprodi menyetujui atau menolak dokumen
+Route::middleware(['kaprodi'])->group(function () {
+    Route::post('akreditasi/{id_akreditasi}/approve', [AkreditasiController::class, 'approve'])->name('akreditasi.approve');
+    Route::post('akreditasi/{id_akreditasi}/reject', [AkreditasiController::class, 'reject'])->name('akreditasi.reject');
+    
+    Route::post('dokumen_kurikulum/{id_dokumenkurikulum}/approve', [DokumenKurikulumController::class, 'approve'])->name('dokumen_kurikulum.approve');
+    Route::post('dokumen_kurikulum/{id_dokumenkurikulum}/reject', [DokumenKurikulumController::class, 'reject'])->name('dokumen_kurikulum.reject');
+
+// Tambahkan route khusus untuk kaprodi menyetujui atau menolak dokumen
+    Route::post('visi_misi/{id_visimisi}/approve', [VisiMisiController::class, 'approve'])->name('visi_misi.approve');
+    Route::post('visi_misi/{id_visimisi}/reject', [VisiMisiController::class, 'reject'])->name('visi_misi.reject');
+
+// Tambahkan route khusus untuk kaprodi menyetujui atau menolak dokumen
+    Route::post('profil_prodi/{id_profilprodi}/approve', [ProfilProdiController::class, 'approve'])->name('profil_prodi.approve');
+    Route::post('profil_prodi/{id_profilprodi}/reject', [ProfilProdiController::class, 'reject'])->name('profil_prodi.reject');
+
+    Route::post('sop/{id_sop}/approve', [SopController::class, 'approve'])->name('sop.approve');
+    Route::post('sop/{id_sop}/reject', [SopController::class, 'reject'])->name('sop.reject');
+
+});
 
 // Route untuk dashboard yang memerlukan autentikasi
 Route::middleware(['auth'])->group(function() {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('akreditasi', AkreditasiController::class);
     Route::resource('dokumens', DokumenController::class);
     Route::resource('users', UserController::class);
     Route::resource('prodis', ProdiController::class);
@@ -52,11 +77,11 @@ Route::middleware(['auth'])->group(function() {
     Route::resource('skemas', SkemaController::class);
     Route::resource('narasumbers', NarasumberController::class);
     Route::resource('pegawais', PegawaiController::class);
-    Route::resource('akreditasis', AkreditasiController::class);
-    Route::resource('visi_misis', VisiMisi::class);
+    Route::resource('pegawais', PegawaiController::class);
+    Route::resource('visi_misi', VisiMisiController::class);
     Route::resource('profil_prodis', ProfilProdiController::class);
     Route::resource('dokumen_kurikulums', DokumenKurikulumController::class);
-    Route::resource('sops', SOPController::class);
+    Route::resource('sops', SopController::class);
     Route::resource('tenaga_ahlis', TenagaAhliController::class);
     Route::resource('koleksi_jurnals', KoleksiJurnalController::class);
     Route::resource('seminars', SeminarController::class);

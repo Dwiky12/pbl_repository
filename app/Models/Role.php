@@ -2,19 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
-{
+class Role extends Model {
     use HasFactory;
 
-    protected $table = 'roles'; // Nama tabel di database
+    protected $table = 'roles';
+    protected $primaryKey = 'id_role';
+    protected $fillable = ['nama'];
 
-    protected $fillable = [
-        'nama' // Kolom yang dapat diisi
-    ];
-
-    public function user() {
-        return $this->hasMany(User::class);
+    public function users() {
+        return $this->hasMany(User::class, 'id_role');
     }
 }

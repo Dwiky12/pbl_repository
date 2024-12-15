@@ -1,22 +1,26 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class DokumenKurikulum extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'id_dokumen', 'id_prodi', 'nama_kurikulum', 'tahun_pemberlakuan', 'semester', 'revisi_ke'
+    protected $table = 'dokumen_kurikulums'; 
+    protected $primaryKey = 'id_dokumenkurikulum';
+    protected $fillable = [ 
+        'id_prodi', 
+        'nama_kurikulum', 
+        'tahun_pemberlakuan', 
+        'semester', 
+        'revisi_ke',
+        'file_dokumen',
+        'status'
     ];
 
-    public function dokumen() {
-        return $this->belongsTo(Dokumen::class);
-    }
-
     public function prodi() {
-        return $this->belongsTo(Prodi::class);
+        return $this->belongsTo(Prodi::class, 'id_prodi');
     }
 }
