@@ -15,7 +15,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_prodi');
             $table->string('visi');
             $table->string('misi');
-            $table->integer('tahun_pemberlakuan');
+            $table->year('tahun_pemberlakuan');
             $table->string('semester');
             $table->integer('revisi_ke');
             $table->string('file_dokumen')->nullable();

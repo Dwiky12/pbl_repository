@@ -32,11 +32,20 @@ use App\Http\Controllers\LandingPageController;
 
 // Route untuk halaman utama
 Route::get('/', [LandingPageController::class, 'index'])->name('landing.page');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware('auth')->name('dashboard');
+
 
 // Route untuk autentikasi
+
+Route::get('register', [AuthController::class, 'showRegisterForm'])->name('register');
+Route::post('register', [AuthController::class, 'register'])->name('register');
+
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
 
 Route::middleware(['dosen'])->group(function () {
     Route::resource('dokumen_kurikulum', DokumenKurikulumController::class);

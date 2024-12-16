@@ -11,16 +11,18 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // $middleware->validateCsrfTokens([
+        //     'register',
+        //     'login',
+        // ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
 
-    $app->routeMiddleware([
-        // Middleware lainnya...
-        'kaprodi' => \App\Http\Middleware\KaprodiMiddleware::class,
-        'dosen' => \App\Http\Middleware\DosenMiddleware::class,
-    ]);
+   
+    
+    
+    
     
     

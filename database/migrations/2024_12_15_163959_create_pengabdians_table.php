@@ -12,8 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pengabdians', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_pengabdian');
+            $table->unsignedBigInteger('id_prodi');
+            $table->string('nama_kegiatan');
+            $table->year('tahun');
+            $table->integer('jumlah_peserta');
+            $table->string('file_dokumen')->nullable();
+            $table->string('status')->default('pending');
             $table->timestamps();
+
+            $table->foreign('id_prodi')->references('id_prodi')->on('prodis')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

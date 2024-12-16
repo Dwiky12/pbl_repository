@@ -10,8 +10,9 @@ use App\Models\User;
 use App\Models\Role;
 
 class AuthController extends Controller {
+
     public function showRegisterForm() {
-        $role = Role::where('id_role', 1)->first();
+        $role = Role::where('id_role', 2)->first();
         return view('auth.register', compact('role'));
     }
 
@@ -29,7 +30,7 @@ class AuthController extends Controller {
         }
 
         $user = new User();
-        $user->nama = $request->nama;
+        $user->nama = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->id_role = $request->id_role; // Role dosen
@@ -37,8 +38,10 @@ class AuthController extends Controller {
 
         Auth::login($user);
 
-        return redirect()->route('/')->with('success', 'Registrasi berhasil.');
+        return redirect()->route('dashboard')->with('success', 'Registrasi berhasil.');
     }
+
+    
 
     public function showLoginForm() {
         return view('auth.login');
@@ -57,7 +60,7 @@ class AuthController extends Controller {
         }
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect()->route('/');
+            return redirect()->route('dashboard');
         }
 
         return redirect()->back()->withErrors(['error' => 'Invalid email or password.'])->withInput();

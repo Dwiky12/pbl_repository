@@ -12,8 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('kebangsaans', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_kebangsaan');
+            $table->unsignedBigInteger('id_prodi');
+            $table->unsignedBigInteger('id_kategori');
+            $table->unsignedBigInteger('id_tingkat');
+            $table->year('tahun');
+            $table->string('url_penyelenggara');
+            $table->string('file_dokumen')->nullable();
+            $table->string('status')->default('pending');
             $table->timestamps();
+
+            $table->foreign('id_prodi')->references('id_prodi')->on('prodis')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_kategori')->references('id_kategori')->on('kategoris')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_tingkat')->references('id_tingkat')->on('tingkats')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

@@ -12,8 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tenaga_ahlis', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_tenagaahli');
+            $table->unsignedBigInteger('id_prodi');
+            $table->string('nama_tenagaahli');
+            $table->string('asal_instansi');
+            $table->string('bidang_keahlian');
+            $table->date('tanggal_mulai');
+            $table->date('tanggal_selesai');
+            $table->string('kegiatan');
+            $table->string('file_dokumen')->nullable();
+            $table->string('status')->default('pending');
             $table->timestamps();
+
+            $table->foreign('id_prodi')->references('id_prodi')->on('prodis')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
